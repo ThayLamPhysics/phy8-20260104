@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bí Mật Dòng Điện - Lâu Đài Thầy Lâm</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- MathJax -->
+    <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      },
+      chtml: {
+        displayAlign: 'center'
+      }
+    };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Google Fonts: Merriweather (Strong Serif for Headers) & Roboto (Clean Sans for Body) -->
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700;900&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #020617; /* Slate-950 */
+            color: #e2e8f0; /* Slate-200 */
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%231e293b' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+
+        h1, h2, h3, h4, .gothic-font {
+            font-family: 'Merriweather', serif;
+        }
+
+        /* Gothic Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            background: #0f172a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #7f1d1d; /* Red-900 */
+            border-radius: 4px;
+            border: 1px solid #450a0a;
+        }
+
+        /* Animations */
+        @keyframes electronFlow {
+            0% { offset-distance: 0%; }
+            100% { offset-distance: 100%; }
+        }
+
+        .electron {
+            offset-path: path('M 50 100 L 50 50 L 350 50 L 350 150 L 50 150 L 50 100');
+            animation: electronFlow 1.5s linear infinite;
+            filter: drop-shadow(0 0 3px #cyan);
+        }
+
+        @keyframes eerieGlow {
+            0% { fill-opacity: 0.2; filter: drop-shadow(0 0 2px #ef4444); }
+            50% { fill-opacity: 1; filter: drop-shadow(0 0 15px #dc2626); }
+            100% { fill-opacity: 0.2; filter: drop-shadow(0 0 2px #ef4444); }
+        }
+        .bulb-light {
+            animation: eerieGlow 2s ease-in-out infinite;
+        }
+
+        /* Compass Spin */
+        @keyframes compassSpin {
+            0% { transform: rotate(0deg); }
+            20% { transform: rotate(20deg); }
+            40% { transform: rotate(-20deg); }
+            60% { transform: rotate(5deg); }
+            100% { transform: rotate(0deg); }
+        }
+        .compass-needle {
+            transform-origin: center;
+            animation: compassSpin 4s ease-in-out infinite;
+        }
+
+        /* Cover Page Transition */
+        .cover-hidden {
+            transform: translateY(-100%);
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        /* Active Tab Styles - Gothic */
+        .active-tab {
+            background-color: #7f1d1d; /* Red-900 */
+            color: #fecaca; /* Red-100 */
+            border: 1px solid #991b1b;
+            box-shadow: 0 0 10px rgba(220, 38, 38, 0.3);
+            text-shadow: 1px 1px 2px black;
+        }
+
+        .active-mobile-tab {
+            background-color: #331212; /* Dark Red bg */
+            color: #f87171; /* Red-400 */
+            border-left: 4px solid #ef4444;
+            font-family: 'Merriweather', serif;
+        }
+
+        /* Buttons */
+        .btn-gothic {
+            background: linear-gradient(to bottom, #1e293b, #0f172a);
+            border: 1px solid #475569;
+            transition: all 0.3s ease;
+        }
+        .btn-gothic:hover {
+            border-color: #9ca3af;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .tab-btn {
+            font-family: 'Merriweather', serif;
+            letter-spacing: 0.5px;
+        }
+
+        /* Glassmorphism Dark */
+        .glass-dark {
+            background: rgba(15, 23, 42, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+    </style>
+</head>
+<body class="overflow-x-hidden relative min-h-screen flex flex-col text-slate-300">
+
+    <!-- 1. COVER PAGE (Bìa Sách Gothic) -->
+    <div id="cover-page" class="fixed inset-0 z-50 flex flex-col items-center justify-center bg-[url('https://www.transparenttextures.com/patterns/black-scales.png')] bg-slate-950 transition-all duration-1000 ease-in-out">
+        <!-- Background Overlay Gradient -->
+        <div class="absolute inset-0 bg-gradient-to-b from-slate-900 via-purple-950/50 to-black z-[-1]"></div>
+        
+        <div class="text-center p-10 max-w-2xl mx-auto border-double border-4 border-slate-600 rounded-sm shadow-[0_0_50px_rgba(88,28,135,0.5)] bg-black/40 backdrop-blur-md relative overflow-hidden">
+            <!-- Decorative corner elements -->
+            <div class="absolute top-2 left-2 w-4 h-4 border-t-2 border-l-2 border-red-800"></div>
+            <div class="absolute top-2 right-2 w-4 h-4 border-t-2 border-r-2 border-red-800"></div>
+            <div class="absolute bottom-2 left-2 w-4 h-4 border-b-2 border-l-2 border-red-800"></div>
+            <div class="absolute bottom-2 right-2 w-4 h-4 border-b-2 border-r-2 border-red-800"></div>
+
+            <div class="mb-6 animate-pulse">
+                <i class="fas fa-bolt text-7xl text-purple-500 drop-shadow-[0_0_10px_rgba(168,85,247,0.8)]"></i>
+            </div>
+            <h2 class="text-3xl tracking-[0.2em] mb-2 text-slate-400 font-serif uppercase">Vật Lý 8</h2>
+            <h1 class="text-5xl md:text-7xl font-black mb-6 text-transparent bg-clip-text bg-gradient-to-r from-red-500 via-purple-400 to-red-500 drop-shadow-sm font-serif">Dòng Điện</h1>
+            <p class="text-xl mb-10 italic text-slate-400 font-serif">"Trong bóng tối vĩnh cửu, dòng điện là tia sáng duy nhất dẫn lối..."</p>
+            
+            <div class="mb-12 border-t border-b border-slate-700 py-2">
+                <p class="text-lg text-red-400 uppercase tracking-widest font-bold">Bá tước Lâm</p>
+            </div>
+            
+            <button onclick="startLearning()" class="group relative px-8 py-4 bg-transparent border border-purple-500 text-purple-300 font-bold uppercase tracking-wider hover:bg-purple-900/30 hover:text-white hover:border-purple-400 transition-all duration-300">
+                <span class="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-purple-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></span>
+                <span class="flex items-center gap-3">
+                    Khám phá Bí mật <i class="fas fa-skull-crossbones text-sm"></i>
+                </span>
+            </button>
+        </div>
+    </div>
+
+    <!-- 2. MAIN NAVIGATION HEADER -->
+    <header class="bg-slate-950/90 border-b border-slate-800 sticky top-0 z-30 backdrop-blur-md">
+        <div class="container mx-auto px-4 h-16 flex justify-between items-center">
+            <!-- Logo / Title -->
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-slate-900 border border-slate-700 rounded-full flex items-center justify-center text-purple-500 font-bold shadow-[0_0_10px_rgba(168,85,247,0.3)] font-serif">
+                    VL
+                </div>
+                <h1 class="text-xl font-bold text-slate-200 hidden sm:block font-serif tracking-wide">Chương: Dòng Điện</h1>
+            </div>
+
+            <!-- Desktop Navigation -->
+            <nav class="hidden lg:flex space-x-1 bg-slate-900 p-1 rounded border border-slate-800">
+                <button onclick="switchTab('intro')" id="tab-btn-intro" class="tab-btn active-tab px-6 py-2 rounded text-sm font-bold transition-all duration-300">Lời mở đầu</button>
+                <button onclick="switchTab('tab1')" id="tab-btn-tab1" class="tab-btn px-6 py-2 rounded text-sm font-medium text-slate-400 hover:text-white hover:bg-slate-800 transition-all duration-300">1. Khái niệm</button>
+                <button onclick="switchTab('tab2')" id="tab-btn-tab2" class="tab-btn px-6 py-2 rounded text-sm font-medium text-slate-400 hover:text-white hover:bg-slate-800 transition-all duration-300">2. Nguồn điện</button>
+                <button onclick="switchTab('tab3')" id="tab-btn-tab3" class="tab-btn px-6 py-2 rounded text-sm font-medium text-slate-400 hover:text-white hover:bg-slate-800 transition-all duration-300">3. Tác dụng</button>
+                <button onclick="switchTab('test')" id="tab-btn-test" class="tab-btn px-6 py-2 rounded text-sm font-medium text-red-500 hover:text-red-400 hover:bg-red-950/30 transition-all duration-300"><i class="fas fa-scroll mr-2"></i>Thử thách</button>
+            </nav>
+
+            <!-- Mobile Hamburger Button -->
+            <button id="hamburger-button" class="lg:hidden text-slate-300 hover:text-white focus:outline-none p-2">
+                <i class="fas fa-bars text-2xl"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- 3. MOBILE SIDEBAR MENU -->
+    <div id="mobile-menu" class="fixed inset-y-0 left-0 z-40 w-72 bg-slate-950 border-r border-slate-800 transform -translate-x-full transition-transform duration-300 ease-in-out lg:hidden shadow-[5px_0_20px_rgba(0,0,0,0.8)] flex flex-col">
+        <div class="p-6 bg-slate-900 border-b border-slate-800 text-purple-400 flex justify-between items-center">
+            <span class="text-xl font-bold font-serif uppercase tracking-widest">Mục Lục</span>
+            <button id="close-menu-button" class="focus:outline-none hover:text-red-500 transition-colors">
+                <i class="fas fa-times text-2xl"></i>
+            </button>
+        </div>
+        <nav class="flex-1 overflow-y-auto py-4 flex flex-col space-y-1">
+            <button onclick="switchTab('intro')" id="mobile-btn-intro" class="mobile-tab-btn active-mobile-tab w-full text-left px-6 py-4 text-slate-400 hover:bg-slate-900 transition-colors">
+                <i class="fas fa-dungeon w-6 text-center"></i> Lời mở đầu
+            </button>
+            <button onclick="switchTab('tab1')" id="mobile-btn-tab1" class="mobile-tab-btn w-full text-left px-6 py-4 text-slate-400 hover:bg-slate-900 transition-colors">
+                <i class="fas fa-bolt w-6 text-center"></i> 1. Dòng điện & Vật liệu
+            </button>
+            <button onclick="switchTab('tab2')" id="mobile-btn-tab2" class="mobile-tab-btn w-full text-left px-6 py-4 text-slate-400 hover:bg-slate-900 transition-colors">
+                <i class="fas fa-car-battery w-6 text-center"></i> 2. Nguồn điện
+            </button>
+            <button onclick="switchTab('tab3')" id="mobile-btn-tab3" class="mobile-tab-btn w-full text-left px-6 py-4 text-slate-400 hover:bg-slate-900 transition-colors">
+                <i class="fas fa-ghost w-6 text-center"></i> 3. Tác dụng kỳ bí
+            </button>
+            <button onclick="switchTab('test')" id="mobile-btn-test" class="mobile-tab-btn w-full text-left px-6 py-4 text-red-400 hover:bg-red-950/20 transition-colors border-t border-slate-800 mt-2">
+                <i class="fas fa-scroll w-6 text-center"></i> Bài thử thách
+            </button>
+        </nav>
+    </div>
+    
+    <div id="menu-overlay" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-30 hidden lg:hidden"></div>
+
+    <!-- 4. CONTENT CONTAINER -->
+    <main class="container mx-auto px-4 py-8 flex-grow max-w-5xl">
+        
+        <!-- TAB: GIỚI THIỆU -->
+        <div id="intro" class="tab-content block animate-fade-in">
+            <div class="glass-dark rounded-none shadow-2xl p-8 md:p-12 border-t-4 border-purple-800 relative">
+                <!-- Decorative Icon -->
+                <div class="absolute -top-6 left-1/2 transform -translate-x-1/2 bg-slate-950 p-2 border border-purple-800 rounded-full">
+                    <i class="fas fa-crow text-2xl text-purple-500"></i>
+                </div>
+
+                <h2 class="text-3xl md:text-4xl font-bold text-center text-purple-400 mb-8 font-serif uppercase tracking-widest">Lời chào từ Bá tước Lâm</h2>
+                
+                <div class="flex flex-col md:flex-row gap-10 items-center">
+                    <div class="md:w-2/3 space-y-6 text-lg text-slate-300 leading-relaxed font-light">
+                        <p>Hỡi những nhà giả kim trẻ tuổi của lớp 8,</p>
+                        <p>Chào mừng các người đến với lâu đài Vật Lý cổ kính của ta. Đêm nay, gió rít ngoài cửa sổ, nhưng bên trong này, chúng ta sẽ điều khiển một thứ quyền năng vô hình: <strong>Dòng Điện</strong>.</p>
+                        <p>Các người có thấy những tia sét xé toạc bầu trời đêm không? Đó chính là dòng điện trong tự nhiên, hoang dã và đầy sức mạnh. Nhưng trong lâu đài này, ta sẽ dạy các người cách thuần hóa nó, bắt nó chảy qua những sợi dây kim loại lạnh lẽo để thắp sáng những ngọn đèn ma thuật.</p>
+                        <p class="font-serif text-red-400 text-xl border-l-4 border-red-800 pl-4 italic">"Hãy cẩn thận, kiến thức là sức mạnh, nhưng điện năng thì không biết khoan nhượng."</p>
+                    </div>
+                    <div class="md:w-1/3 flex justify-center">
+                        <div class="w-56 h-56 bg-slate-900 rounded-full flex items-center justify-center border-4 border-slate-700 shadow-[0_0_30px_rgba(88,28,135,0.3)] overflow-hidden relative group">
+                            <!-- Metaphor: Lightning in Dark Sky -->
+                            <svg viewBox="0 0 100 100" class="w-full h-full">
+                                <rect width="100" height="100" fill="#0f172a"/>
+                                <!-- Moon -->
+                                <circle cx="80" cy="20" r="10" fill="#fefce8" fill-opacity="0.8" class="drop-shadow-[0_0_10px_white]"/>
+                                <!-- Clouds -->
+                                <path d="M10,80 Q30,60 50,80 T90,80" fill="none" stroke="#334155" stroke-width="20" opacity="0.5"/>
+                                <!-- Lightning -->
+                                <path d="M50,0 L40,40 L60,40 L30,100" fill="none" stroke="#a855f7" stroke-width="2" stroke-linejoin="round">
+                                    <animate attributeName="d" values="M50,0 L40,40 L60,40 L30,100; M52,0 L45,35 L65,45 L35,100; M50,0 L40,40 L60,40 L30,100" dur="0.2s" repeatCount="indefinite" />
+                                    <animate attributeName="stroke-opacity" values="0;1;0;0;1;0" dur="2s" repeatCount="indefinite" />
+                                </path>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-12 text-center">
+                    <button onclick="switchTab('tab1')" class="px-8 py-3 bg-red-900 text-white font-serif tracking-widest border border-red-700 hover:bg-red-800 hover:shadow-[0_0_20px_rgba(220,38,38,0.5)] transition-all uppercase">
+                        Bước vào hầm ngục kiến thức <i class="fas fa-chevron-right ml-2 text-xs"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 1: KHÁI NIỆM -->
+        <div id="tab1" class="tab-content hidden animate-fade-in">
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- Left: Theory -->
+                <div class="space-y-6">
+                    <div class="bg-slate-900 p-6 border border-slate-800 shadow-lg relative overflow-hidden">
+                        <div class="absolute top-0 left-0 w-1 h-full bg-purple-600"></div>
+                        <h3 class="text-xl font-bold text-purple-400 mb-4 uppercase tracking-wider"><i class="fas fa-scroll mr-2"></i>1. Dòng điện là gì?</h3>
+                        <p class="text-slate-400 mb-4">Hãy tưởng tượng các hạt điện tích như những "bóng ma" tí hon (electron) đang ngủ yên trong dây dẫn. Khi có hiệu lệnh, chúng đồng loạt bay về một hướng, tạo thành một dòng chảy năng lượng.</p>
+                        <div class="bg-slate-950 p-4 border border-purple-900/50">
+                            <p class="font-serif text-purple-300 text-lg mb-2">Định nghĩa Hắc ám:</p>
+                            <p class="text-slate-300">Dòng điện là dòng các <span class="text-red-500 font-bold border-b border-red-500">điện tích dịch chuyển có hướng</span>.</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-900 p-6 border border-slate-800 shadow-lg relative">
+                        <div class="absolute top-0 left-0 w-1 h-full bg-yellow-600"></div>
+                        <h3 class="text-xl font-bold text-yellow-600 mb-4 uppercase tracking-wider"><i class="fas fa-gem mr-2"></i>2. Phân loại vật chất</h3>
+                        <ul class="space-y-4">
+                            <li class="flex items-start group">
+                                <i class="fas fa-check text-green-500 mt-1 mr-3 group-hover:scale-125 transition-transform"></i>
+                                <div>
+                                    <span class="font-bold text-slate-200">Chất dẫn điện:</span> Những kẻ tôi tớ trung thành, cho phép dòng điện đi qua. <br>
+                                    <em class="text-xs text-slate-500 uppercase">Ví dụ: Đồng, Bạc, Dung dịch muối...</em>
+                                </div>
+                            </li>
+                            <li class="flex items-start group">
+                                <i class="fas fa-times text-red-500 mt-1 mr-3 group-hover:scale-125 transition-transform"></i>
+                                <div>
+                                    <span class="font-bold text-slate-200">Chất cách điện:</span> Những bức tường câm lặng, ngăn cản dòng điện. <br>
+                                    <em class="text-xs text-slate-500 uppercase">Ví dụ: Thủy tinh, Sứ, Cao su...</em>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Right: Simulation -->
+                <div class="bg-black border-2 border-slate-800 p-6 flex flex-col items-center justify-center relative min-h-[350px] shadow-[inset_0_0_50px_rgba(0,0,0,0.8)]">
+                    <h4 class="text-slate-500 mb-6 font-serif text-sm uppercase tracking-[0.3em]">Nghi thức: Dòng Electron Ma Quái</h4>
+                    
+                    <!-- SVG Simulation Circuit -->
+                    <svg viewBox="0 0 400 200" class="w-full h-auto max-w-sm drop-shadow-[0_0_10px_rgba(100,100,255,0.2)]">
+                        <!-- Battery -->
+                        <rect x="20" y="80" width="10" height="40" fill="#475569" />
+                        <rect x="30" y="70" width="10" height="60" fill="#dc2626" stroke="#991b1b" stroke-width="2"/>
+                        <text x="10" y="75" fill="#94a3b8" font-size="20" font-family="serif">-</text>
+                        <text x="45" y="75" fill="#f87171" font-size="20" font-family="serif">+</text>
+
+                        <!-- Wires -->
+                        <path d="M 50 100 L 50 50 L 350 50 L 350 150 L 50 150 L 50 100" fill="none" stroke="#334155" stroke-width="2" />
+                        <path d="M 50 100 L 50 50 L 350 50 L 350 150 L 50 150 L 50 100" fill="none" stroke="#60a5fa" stroke-width="1" stroke-dasharray="5,5" opacity="0.3" />
+
+                        <!-- Electrons (Dots) Animation -->
+                        <circle r="3" fill="#a855f7" class="electron" style="animation-delay: 0s;"></circle>
+                        <circle r="3" fill="#a855f7" class="electron" style="animation-delay: 0.3s;"></circle>
+                        <circle r="3" fill="#a855f7" class="electron" style="animation-delay: 0.6s;"></circle>
+                        <circle r="3" fill="#a855f7" class="electron" style="animation-delay: 0.9s;"></circle>
+                        <circle r="3" fill="#a855f7" class="electron" style="animation-delay: 1.2s;"></circle>
+
+                        <!-- Bulb -->
+                        <g transform="translate(330, 80)">
+                             <!-- Glow Effect -->
+                             <circle cx="20" cy="20" r="15" fill="#ef4444" class="bulb-light" />
+                             <!-- Glass -->
+                             <path d="M10,10 Q20,-5 30,10 Q35,25 25,35 L15,35 Q5,25 10,10" fill="none" stroke="#94a3b8" stroke-width="1" />
+                             <!-- Filament -->
+                             <path d="M18,35 L18,20 L22,20 L22,35" stroke="#cbd5e1" stroke-width="1" fill="none"/>
+                        </g>
+                    </svg>
+
+                    <p class="text-purple-400/60 text-xs mt-6 text-center italic font-serif">"Các linh hồn electron đang nhảy múa..."</p>
+                </div>
+            </div>
+            <div class="mt-8 flex justify-end">
+                <button onclick="switchTab('tab2')" class="text-sm uppercase tracking-wider text-slate-400 hover:text-white transition-colors flex items-center gap-2">
+                    Tiếp theo: Nguồn sức mạnh <i class="fas fa-long-arrow-alt-right"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- TAB 2: NGUỒN ĐIỆN -->
+        <div id="tab2" class="tab-content hidden animate-fade-in">
+             <div class="grid md:grid-cols-2 gap-8">
+                <!-- Left: Theory -->
+                <div class="space-y-6">
+                    <div class="bg-slate-900 p-6 border border-slate-800 shadow-lg">
+                        <h3 class="text-xl font-bold text-red-500 mb-3 uppercase font-serif"><i class="fas fa-flask mr-2"></i>1. Nguồn điện</h3>
+                        <p class="text-slate-400 mb-3">Như trái tim bơm máu đi khắp cơ thể, nguồn điện cung cấp năng lượng để duy trì dòng chảy. Không có nó, mọi thứ sẽ chìm vào bóng tối vĩnh hằng.</p>
+                        <ul class="border-l border-red-900 pl-4 space-y-2 text-slate-400">
+                            <li>Luôn có 2 cực: <strong>Dương (+)</strong> và <strong>Âm (-)</strong>.</li>
+                            <li>Hiện thân: Pin, Ắc quy, Máy phát điện khổng lồ.</li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-slate-900 p-6 border border-slate-800 shadow-lg">
+                        <h3 class="text-xl font-bold text-blue-500 mb-3 uppercase font-serif"><i class="fas fa-balance-scale mr-2"></i>2. Luật lệ & Đo lường</h3>
+                        <div class="grid grid-cols-1 gap-4">
+                            <div class="bg-slate-950 p-4 border border-blue-900/30">
+                                <p class="font-serif text-blue-400 font-bold uppercase text-sm">Cường độ dòng điện ($I$):</p>
+                                <p class="text-xs text-slate-500 mt-1">Sức mạnh của dòng chảy.</p>
+                                <p class="text-slate-300 text-sm mt-1">Đơn vị: <strong>Ampe (A)</strong></p>
+                                <div class="mt-2 text-center py-1 bg-slate-900 border border-slate-700">
+                                    $$I = \frac{q}{t}$$
+                                </div>
+                            </div>
+                            <div class="bg-slate-950 p-4 border border-orange-900/30">
+                                <p class="font-serif text-orange-400 font-bold uppercase text-sm">Hiệu điện thế ($U$):</p>
+                                <p class="text-xs text-slate-500 mt-1">Sự chênh lệch áp lực.</p>
+                                <p class="text-slate-300 text-sm mt-1">Đơn vị: <strong>Vôn (V)</strong></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Simulation (Ammeter) -->
+                <div class="bg-slate-900 p-6 border border-slate-800 shadow-2xl flex flex-col items-center justify-center relative">
+                    <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/dark-matter.png')] opacity-20"></div>
+                    <h4 class="text-slate-400 mb-6 font-serif uppercase tracking-widest z-10">Cỗ máy đo lường cổ đại</h4>
+                    
+                    <div class="relative w-full max-w-sm h-72 bg-black rounded-t-full border-4 border-slate-700 p-6 flex flex-col items-center z-10 shadow-[0_0_30px_rgba(0,0,0,1)]">
+                        <!-- Screw heads -->
+                        <div class="absolute top-2 left-2 w-3 h-3 bg-slate-600 rounded-full flex items-center justify-center"><div class="w-full h-[1px] bg-black rotate-45"></div></div>
+                        <div class="absolute top-2 right-2 w-3 h-3 bg-slate-600 rounded-full flex items-center justify-center"><div class="w-full h-[1px] bg-black rotate-45"></div></div>
+                        <div class="absolute bottom-2 left-2 w-3 h-3 bg-slate-600 rounded-full flex items-center justify-center"><div class="w-full h-[1px] bg-black rotate-45"></div></div>
+                        <div class="absolute bottom-2 right-2 w-3 h-3 bg-slate-600 rounded-full flex items-center justify-center"><div class="w-full h-[1px] bg-black rotate-45"></div></div>
+
+                        <!-- Ammeter Face -->
+                        <div class="w-40 h-40 bg-[#1a1a1a] rounded-full border-2 border-slate-600 relative overflow-hidden shadow-inner mb-6">
+                            <!-- Scale -->
+                            <svg viewBox="0 0 100 50" class="absolute bottom-0 w-full h-full">
+                                <path d="M 10 50 A 40 40 0 0 1 90 50" fill="none" stroke="#4b5563" stroke-width="2"/>
+                                <line x1="10" y1="50" x2="15" y2="45" stroke="#4b5563" stroke-width="1" />
+                                <line x1="50" y1="10" x2="50" y2="18" stroke="#ef4444" stroke-width="2" />
+                                <line x1="90" y1="50" x2="85" y2="45" stroke="#4b5563" stroke-width="1" />
+                                <text x="5" y="45" fill="#6b7280" font-size="8" font-family="serif">0</text>
+                                <text x="47" y="8" fill="#ef4444" font-size="8" font-family="serif">MAX</text>
+                            </svg>
+                            <!-- Needle -->
+                            <div id="needle" class="absolute bottom-0 left-1/2 w-0.5 h-28 bg-red-600 origin-bottom transition-transform duration-[1.5s] ease-[cubic-bezier(0.68,-0.55,0.27,1.55)] shadow-[0_0_5px_red]" style="transform: translateX(-50%) rotate(-45deg);"></div>
+                            <div class="absolute bottom-0 left-1/2 w-3 h-3 bg-slate-400 rounded-full transform -translate-x-1/2 translate-y-1/2 shadow-lg"></div>
+                        </div>
+
+                        <!-- Controls -->
+                        <div class="flex items-center gap-3">
+                            <button onclick="updateAmmeter(0)" class="btn-gothic px-3 py-1 rounded text-xs uppercase text-slate-400">Ngắt</button>
+                            <button onclick="updateAmmeter(30)" class="btn-gothic px-3 py-1 rounded text-xs uppercase text-yellow-500 border-yellow-900">Yếu (3V)</button>
+                            <button onclick="updateAmmeter(75)" class="btn-gothic px-3 py-1 rounded text-xs uppercase text-red-500 border-red-900 font-bold">Quá tải (9V)</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+             <div class="mt-8 flex justify-end">
+                <button onclick="switchTab('tab3')" class="text-sm uppercase tracking-wider text-slate-400 hover:text-white transition-colors flex items-center gap-2">
+                    Tiếp theo: Ma thuật <i class="fas fa-long-arrow-alt-right"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- TAB 3: TÁC DỤNG -->
+        <div id="tab3" class="tab-content hidden animate-fade-in">
+             <div class="grid md:grid-cols-2 gap-8">
+                <!-- Left: Theory -->
+                <div class="space-y-6">
+                    <div class="bg-slate-900 p-8 border border-slate-800 shadow-2xl">
+                         <h3 class="text-2xl font-bold text-center text-slate-200 mb-8 uppercase font-serif tracking-[0.2em] border-b border-slate-800 pb-4">4 Phép Màu Của Điện</h3>
+                         <div class="space-y-4">
+                             <!-- Tác dụng nhiệt -->
+                             <div class="flex items-center p-4 bg-slate-950/50 border-l-2 border-red-600 hover:bg-red-900/10 transition duration-300">
+                                 <i class="fas fa-fire text-red-600 text-xl mr-4 w-6 text-center"></i>
+                                 <div>
+                                     <h5 class="font-bold text-red-500 font-serif">Nhiệt Năng</h5>
+                                     <p class="text-xs text-slate-500">Thiêu đốt dây tóc, làm nóng bàn là.</p>
+                                 </div>
+                             </div>
+                             <!-- Tác dụng phát sáng -->
+                             <div class="flex items-center p-4 bg-slate-950/50 border-l-2 border-yellow-600 hover:bg-yellow-900/10 transition duration-300">
+                                 <i class="fas fa-sun text-yellow-600 text-xl mr-4 w-6 text-center"></i>
+                                 <div>
+                                     <h5 class="font-bold text-yellow-500 font-serif">Quang Năng</h5>
+                                     <p class="text-xs text-slate-500">Ánh sáng lạnh từ đèn LED, đèn neon.</p>
+                                 </div>
+                             </div>
+                             <!-- Tác dụng từ -->
+                             <div class="flex items-center p-4 bg-slate-950/50 border-l-2 border-blue-600 hover:bg-blue-900/10 transition duration-300">
+                                 <i class="fas fa-magnet text-blue-600 text-xl mr-4 w-6 text-center"></i>
+                                 <div>
+                                     <h5 class="font-bold text-blue-500 font-serif">Từ Trường</h5>
+                                     <p class="text-xs text-slate-500">Làm quay kim la bàn, hút sắt thép.</p>
+                                 </div>
+                             </div>
+                             <!-- Tác dụng hóa học -->
+                             <div class="flex items-center p-4 bg-slate-950/50 border-l-2 border-green-600 hover:bg-green-900/10 transition duration-300">
+                                 <i class="fas fa-skull-crossbones text-green-600 text-xl mr-4 w-6 text-center"></i>
+                                 <div>
+                                     <h5 class="font-bold text-green-500 font-serif">Hóa Học & Sinh Lý</h5>
+                                     <p class="text-xs text-slate-500">Mạ kim loại hoặc gây co giật cơ bắp.</p>
+                                 </div>
+                             </div>
+                         </div>
+                    </div>
+                </div>
+
+                <!-- Right: Simulation (Multi-effect) -->
+                <div class="bg-[#050505] rounded-none border-2 border-slate-800 p-6 shadow-[0_0_20px_rgba(0,0,0,0.8)] flex flex-col items-center justify-center relative overflow-hidden">
+                    <div class="absolute inset-0 border-[10px] border-slate-900 pointer-events-none"></div>
+                    <h4 class="text-purple-500 mb-8 font-serif font-bold uppercase z-10">La Bàn Ma Thuật</h4>
+                    
+                    <div class="relative w-64 h-64 bg-slate-900 rounded-full shadow-[0_0_50px_rgba(124,58,237,0.1)] flex items-center justify-center border border-slate-700">
+                        <!-- Cardinal Points -->
+                        <span class="absolute top-4 text-slate-600 font-serif font-bold">N</span>
+                        <span class="absolute bottom-4 text-slate-600 font-serif font-bold">S</span>
+                        <span class="absolute left-4 text-slate-600 font-serif font-bold">W</span>
+                        <span class="absolute right-4 text-slate-600 font-serif font-bold">E</span>
+
+                        <!-- Coil glowing -->
+                        <div class="absolute inset-0 rounded-full border-4 border-purple-900/40 animate-pulse"></div>
+
+                        <!-- Needle (Animated) -->
+                        <div class="w-4 h-48 absolute compass-needle z-10 flex flex-col items-center justify-between filter drop-shadow-[0_0_5px_rgba(255,255,255,0.3)]">
+                             <!-- North Tip -->
+                             <div class="w-0 h-0 border-l-[8px] border-l-transparent border-r-[8px] border-r-transparent border-b-[96px] border-b-red-700"></div>
+                             <!-- South Tip -->
+                             <div class="w-0 h-0 border-l-[8px] border-l-transparent border-r-[8px] border-r-transparent border-t-[96px] border-t-slate-200"></div>
+                        </div>
+                        
+                        <!-- Center Jewel -->
+                        <div class="w-6 h-6 bg-gradient-to-br from-purple-500 to-black rounded-full z-20 absolute border border-purple-300"></div>
+                    </div>
+
+                    <div class="mt-8 flex items-center gap-4 z-10">
+                        <div class="bg-black/50 p-3 border border-red-900/50 flex items-center gap-3">
+                            <div class="w-3 h-3 bg-red-600 rounded-full animate-ping"></div>
+                            <span class="text-xs font-serif text-red-400 uppercase tracking-wide">Đang phát hiện từ trường</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-8 flex justify-end">
+                <button onclick="switchTab('test')" class="px-8 py-3 bg-red-700 text-white font-serif uppercase tracking-widest hover:bg-red-600 shadow-[0_0_15px_red] transition-all">
+                    Chấp nhận thử thách <i class="fas fa-skull ml-2"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- TAB: KIỂM TRA -->
+        <div id="test" class="tab-content hidden animate-fade-in h-full flex flex-col">
+            <div class="bg-slate-900 p-6 border-b-4 border-red-800 shadow-lg mb-6">
+                <h3 class="text-2xl font-bold text-red-500 mb-2 font-serif uppercase">Thử Thách Cuối Cùng</h3>
+                <p class="text-slate-400">Vượt qua bài kiểm tra này để chứng minh ngươi xứng đáng nắm giữ sức mạnh của dòng điện.</p>
+            </div>
+            <div class="flex-grow w-full min-h-[600px] bg-slate-950 rounded border border-slate-800 relative overflow-hidden">
+                <!-- Decorative background inside iframe container -->
+                <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/dark-brick-wall.png')] opacity-10 pointer-events-none"></div>
+                
+                <div class="absolute inset-0 flex items-center justify-center text-slate-600 z-0 font-serif">
+                    <i class="fas fa-spinner fa-spin mr-3"></i> Đang triệu hồi bài kiểm tra...
+                </div>
+                <!-- Đã sửa: Xóa dấu "/" ở đầu để tìm file trong cùng thư mục -->
+                <iframe src="test.html" class="w-full h-full absolute inset-0 z-10 opacity-90 hover:opacity-100 transition-opacity" title="Bài kiểm tra Vật Lý 8"></iframe>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // 1. Cover Page Logic
+        function startLearning() {
+            const coverPage = document.getElementById('cover-page');
+            coverPage.classList.add('cover-hidden');
+            
+            // Play a subtle sound effect could be added here
+        }
+
+        // 2. Tab Switching Logic
+        function switchTab(tabId) {
+            // Hide all tabs
+            const contents = document.querySelectorAll('.tab-content');
+            contents.forEach(el => el.classList.add('hidden'));
+
+            // Show selected tab
+            document.getElementById(tabId).classList.remove('hidden');
+
+            // Reset Desktop Buttons
+            const desktopButtons = document.querySelectorAll('.tab-btn');
+            desktopButtons.forEach(btn => {
+                // Remove active classes
+                btn.classList.remove('active-tab', 'text-slate-200');
+                // Add default inactive classes
+                if(btn.id !== 'tab-btn-test') {
+                    btn.classList.add('text-slate-400');
+                } else {
+                    btn.classList.remove('bg-red-950/30');
+                }
+            });
+
+            // Set Active Desktop Button
+            const activeBtn = document.getElementById(`tab-btn-${tabId}`);
+            if(activeBtn) {
+                activeBtn.classList.add('active-tab');
+                activeBtn.classList.remove('text-slate-400');
+            }
+
+            // Reset Mobile Buttons
+            const mobileButtons = document.querySelectorAll('.mobile-tab-btn');
+            mobileButtons.forEach(btn => {
+                btn.classList.remove('active-mobile-tab');
+                btn.classList.add('text-slate-400');
+            });
+            
+            // Set Active Mobile Button
+            const activeMobileBtn = document.getElementById(`mobile-btn-${tabId}`);
+            if(activeMobileBtn) {
+                activeMobileBtn.classList.add('active-mobile-tab');
+                activeMobileBtn.classList.remove('text-slate-400');
+            }
+
+            closeMobileMenu();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // 3. Mobile Menu Logic
+        const hamburgerBtn = document.getElementById('hamburger-button');
+        const closeMenuBtn = document.getElementById('close-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const menuOverlay = document.getElementById('menu-overlay');
+
+        function openMobileMenu() {
+            mobileMenu.classList.remove('-translate-x-full');
+            menuOverlay.classList.remove('hidden');
+        }
+
+        function closeMobileMenu() {
+            mobileMenu.classList.add('-translate-x-full');
+            menuOverlay.classList.add('hidden');
+        }
+
+        hamburgerBtn.addEventListener('click', openMobileMenu);
+        closeMenuBtn.addEventListener('click', closeMobileMenu);
+        menuOverlay.addEventListener('click', closeMobileMenu);
+
+        // 4. Ammeter Simulation Logic (Needle Animation)
+        function updateAmmeter(value) {
+            const needle = document.getElementById('needle');
+            // Mapping: 0 -> -45deg, 100 -> +45deg
+            const degree = -45 + (value / 100) * 90;
+            
+            // Add a little random jitter for realism/spookiness
+            const jitter = (Math.random() - 0.5) * 5; 
+            
+            needle.style.transform = `translateX(-50%) rotate(${degree + jitter}deg)`;
+        }
+    </script>
+</body>
+</html>
